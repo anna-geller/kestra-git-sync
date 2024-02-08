@@ -1,0 +1,18 @@
+id: git_sync_product
+namespace: engineering.product
+
+tasks:
+  - id: git
+    type: io.kestra.plugin.git.Sync
+    url: https://github.com/anna-geller/kestra-git-sync
+    branch: main
+    username: anna-geller
+    password: "{{ secret('GITHUB_ACCESS_TOKEN') }}"
+    gitDirectory: scripts
+    namespaceFilesDirectory: scripts
+    dryRun: false
+
+triggers:
+  - id: weekly
+    type: io.kestra.core.models.triggers.types.Schedule
+    cron: "@weekly"
